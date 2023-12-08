@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Header";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import getCurrentUser from "./utils/getCurrentUser";
 import { getServerSession } from "next-auth";
@@ -27,7 +27,9 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Navbar currentUser={currentUser} />
+        <header>
+          <Navbar currentUser={currentUser} />
+        </header>
         <SessionProvider session={session}>
           <main>{children}</main>
         </SessionProvider>

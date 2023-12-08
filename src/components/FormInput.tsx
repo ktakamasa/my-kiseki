@@ -7,7 +7,6 @@ interface FormInputProps {
   value: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  //   big?: boolean,
 }
 
 export default function FormInput({
