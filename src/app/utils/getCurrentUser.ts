@@ -23,13 +23,8 @@ export default async function getCurrentUser() {
     if (!currentUser) {
       return null;
     }
-
-    return {
-      ...currentUser,
-      createdAt: currentUser.createdAt.toISOString(),
-      //   updatedAt: currentUser.updatedAt.toISOString(),
-      //   emailVerified: currentUser.emailVerified.toISOString() || null,
-    };
+    console.log(currentUser);
+    return currentUser;
   } catch (error) {
     console.error("Error while getting current user:", error);
     alert("Failed to fetch user data. Please try again.");

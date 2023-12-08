@@ -45,6 +45,7 @@ export default function Login() {
           value={state.email}
           onChange={handleChange}
           placeholder="Email"
+          autocomplete="email"
         />
         <FormInput
           id="password"
@@ -53,6 +54,7 @@ export default function Login() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
+          autocomplete="new-password"
         />
       </div>
       <div className="my-4 space-y-4">
