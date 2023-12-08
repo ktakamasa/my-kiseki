@@ -3,11 +3,11 @@ import FormInput from "@/components/FormInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import { signIn } from "next-auth/react";
 
-export default function Login() {
+export default function Registration() {
   const router = useRouter();
   const [state, setState] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -16,28 +16,43 @@ export default function Login() {
     setState({ ...state, [e.target.name]: e.target.value });
   }
 
-  // Handle login
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    signIn("credentials", {
-      ...state,
-      redirect: false,
-    }).then((callback) => {
-      if (callback?.ok) {
-        router.push("/");
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(state),
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `Failed to register: ${response.status} ${response.statusText}`
+        );
       }
       router.refresh();
-
-      if (callback?.error) {
-        throw new Error("Invalid credentials");
-      }
-    });
+      setTimeout(() => {
+        router.push("/login");
+      }, 2500);
+    } catch (error: any) {
+      console.error("Registration failed:", error.message);
+    }
   };
 
   return (
     <form className="text-center max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
       <div className="space-y-4">
+        <FormInput
+          id="name"
+          name="name"
+          type="text"
+          value={state.name}
+          onChange={handleChange}
+          placeholder="Name"
+        />
         <FormInput
           id="email"
           name="email"
@@ -54,24 +69,21 @@ export default function Login() {
           onChange={handleChange}
           placeholder="Password"
         />
+        <button
+          type="submit"
+          className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300"
+        >
+          Register
+        </button>
       </div>
-      <div className="my-4 space-y-4">
-        <div>
-          <button
-            type="submit"
-            className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300"
-          >
-            Sign in
-          </button>
-        </div>
-
+      <div className="my-4">
         <div className="text-sm">
-          Not registered yet?{" "}
+          Already have an account?{" "}
           <Link
-            href="/register"
+            href="/login"
             className="text-blue-400 hover:text-blue-500 transition duration-200"
           >
-            Register here!
+            Sign in
           </Link>
         </div>
       </div>

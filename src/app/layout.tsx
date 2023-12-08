@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import Navbar from "@/components/Header";
 import Footer from "@/components/Footer";
+import getCurrentUser from "./utils/getCurrentUser";
+import { getServerSession } from "next-auth";
+import SessionProvider from "@/components/SessionProvider";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -14,18 +17,20 @@ export const metadata: Metadata = {
   description: "Blog to share miracles",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession();
+  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={`${roboto.className}`}>
-        <header>
-          <Header />
-        </header>
-        <main>{children}</main>
+      <body className={roboto.className}>
+        <Navbar currentUser={currentUser} />
+        <SessionProvider session={session}>
+          <main>{children}</main>
+        </SessionProvider>
         <footer>
           <Footer />
         </footer>
