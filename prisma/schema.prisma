@@ -16,7 +16,20 @@ model User {
   email           String?   @unique
   hashedPassword  String?
   createdAt       DateTime @default(now())  
+  posts           Post[]
 }
+
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  createdAt DateTime @default(now())
+  imageSrc String
+  description String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+  likedIds String[]  @db.ObjectId
+}
+
 
 
 // refresh_token_expires_in use as optional for github

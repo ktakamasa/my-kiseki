@@ -7,7 +7,7 @@ interface User {
   name: string | null;
   email: string | null;
   hashedPassword: string | null;
-  createdAt: Date;
+  createdAt: Date | string;
 }
 
 interface HeaderProps {
@@ -49,7 +49,7 @@ export default function Header({ currentUser }: HeaderProps) {
               </Link>
             </div>
 
-            {/* Posts Link */}
+            {/* Post Link */}
             <div>
               <Link href="/posts">
                 <div className="text-white hover:text-tertiary transition duration-300 cursor-pointer">

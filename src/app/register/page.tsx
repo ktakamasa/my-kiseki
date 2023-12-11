@@ -52,7 +52,7 @@ export default function Registration() {
           value={state.name}
           onChange={handleChange}
           placeholder="Name"
-          autocomplete="name"
+          autoComplete="name"
         />
         <FormInput
           id="email"
@@ -61,7 +61,7 @@ export default function Registration() {
           value={state.email}
           onChange={handleChange}
           placeholder="Email"
-          autocomplete="email"
+          autoComplete="email"
         />
         <FormInput
           id="password"
@@ -70,7 +70,7 @@ export default function Registration() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
-          autocomplete="new-password"
+          autoComplete="new-password"
         />
         <button
           type="submit"

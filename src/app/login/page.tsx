@@ -19,11 +19,12 @@ export default function Login() {
   // Handle login
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+    try {
+      const callback = await signIn("credentials", {
+        ...state,
+        redirect: false,
+      });
 
-    signIn("credentials", {
-      ...state,
-      redirect: false,
-    }).then((callback) => {
       if (callback?.ok) {
         router.push("/");
       }
@@ -32,7 +33,9 @@ export default function Login() {
       if (callback?.error) {
         throw new Error("Invalid credentials");
       }
-    });
+    } catch (error: any) {
+      console.error("Sign-in failed:", error.message);
+    }
   };
 
   return (
@@ -45,7 +48,7 @@ export default function Login() {
           value={state.email}
           onChange={handleChange}
           placeholder="Email"
-          autocomplete="email"
+          autoComplete="email"
         />
         <FormInput
           id="password"
@@ -54,7 +57,7 @@ export default function Login() {
           value={state.password}
           onChange={handleChange}
           placeholder="Password"
-          autocomplete="new-password"
+          autoComplete="new-password"
         />
       </div>
       <div className="my-4 space-y-4">

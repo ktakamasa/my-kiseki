@@ -4,10 +4,11 @@ interface FormInputProps {
   id: string;
   name: string;
   type: any;
-  value: any;
+  value?: any;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
-  autocomplete?: string;
+  autoComplete?: string;
+  accept?: any;
 }
 
 export default function FormInput({
@@ -17,7 +18,8 @@ export default function FormInput({
   value,
   onChange,
   placeholder,
-  autocomplete,
+  autoComplete,
+  accept,
 }: FormInputProps) {
   return (
     <input
@@ -27,7 +29,8 @@ export default function FormInput({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      autoComplete={autocomplete}
+      autoComplete={autoComplete}
+      accept={accept}
       className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
     />
   );

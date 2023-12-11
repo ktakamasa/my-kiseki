@@ -23,7 +23,7 @@ export default async function getCurrentUser() {
     if (!currentUser) {
       return null;
     }
-    console.log(currentUser);
+    // console.log(currentUser);
     return currentUser;
   } catch (error) {
     console.error("Error while getting current user:", error);
