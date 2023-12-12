@@ -42,7 +42,6 @@ export default function Registration() {
         }
       } else {
         router.refresh();
-
         router.push("/login");
       }
     } catch (error: any) {
@@ -51,7 +50,10 @@ export default function Registration() {
   };
 
   return (
-    <form className="text-center max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
+    <form
+      className="text-center max-w-md mx-auto mt-8 px-4"
+      onSubmit={handleSubmit}
+    >
       {/* Display error message */}
       {error && <div className="text-red-500">{error}</div>}{" "}
       <div className="space-y-4">
@@ -87,7 +89,7 @@ export default function Registration() {
         />
         <button
           type="submit"
-          className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300"
+          className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300 w-full"
         >
           Register
         </button>

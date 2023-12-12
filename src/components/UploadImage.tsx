@@ -43,8 +43,8 @@ export default function UploadImage({ onChange }: UploadImageProps) {
           src={URL.createObjectURL(image)}
           alt="Uploaded Image"
           className="mt-2 max-w-full h-auto"
-          width={400}
-          height={400}
+          width={500}
+          height={500}
         />
       )}
     </div>

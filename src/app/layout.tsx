@@ -30,7 +30,7 @@ export default async function RootLayout({
         <Header currentUser={currentUser} />
         {/* <SessionProvider session={session}> */}
         {/* creates session before login - so don't use */}
-        <main className="flex-1">
+        <main className="flex-grow">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {children}
           </div>

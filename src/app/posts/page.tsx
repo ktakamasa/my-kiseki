@@ -13,7 +13,7 @@ export default async function Posts() {
       <div className="m-4">
         <Link
           href={`${currentUser ? "/create" : "/login"}`}
-          className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300"
+          className="bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-300 font-semibold"
         >
           Share a Miracle
         </Link>
