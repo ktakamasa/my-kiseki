@@ -9,6 +9,7 @@ interface FormInputProps {
   placeholder?: string;
   autoComplete?: string;
   accept?: any;
+  required?: boolean;
 }
 
 export default function FormInput({
@@ -20,6 +21,7 @@ export default function FormInput({
   placeholder,
   autoComplete,
   accept,
+  required,
 }: FormInputProps) {
   return (
     <input
@@ -31,6 +33,7 @@ export default function FormInput({
       placeholder={placeholder}
       autoComplete={autoComplete}
       accept={accept}
+      required={required}
       className="w-full p-4 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
     />
   );

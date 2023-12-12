@@ -25,23 +25,23 @@ export default function Header({ currentUser }: HeaderProps) {
   return (
     <header>
       <nav className="bg-primary p-4">
-        <div className="container mx-auto flex justify-between items-center">
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center">
           <Link href="/">
-            <h1 className="text-white text-xl font-semibold cursor-pointer">
+            <h1 className="text-white text-xl font-semibold cursor-pointer mb-4 lg:mb-0">
               ✨キセキ✨
             </h1>
           </Link>
           {currentUser ? (
-            <div className="text-white font-semibold">
+            <div className="text-white font-semibold mb-4 lg:mb-0">
               Hi {currentUser.name ?? "User"}!
             </div>
           ) : (
-            <div className="text-white font-semibold">Welcome!</div>
+            <div className="text-white font-semibold"></div>
           )}
 
-          <div className="flex space-x-8">
+          <div className="flex flex-col lg:flex-row lg:justify-center lg:space-x-8">
             {/* Home Link */}
-            <div>
+            <div className="mb-4 lg:mb-0">
               <Link href="/">
                 <div className="text-white hover:text-tertiary transition duration-300 cursor-pointer">
                   Home
@@ -50,7 +50,7 @@ export default function Header({ currentUser }: HeaderProps) {
             </div>
 
             {/* Post Link */}
-            <div>
+            <div className="mb-4 lg:mb-0">
               <Link href="/posts">
                 <div className="text-white hover:text-tertiary transition duration-300 cursor-pointer">
                   Posts
@@ -59,7 +59,7 @@ export default function Header({ currentUser }: HeaderProps) {
             </div>
 
             {/* Login/Sign Out Link */}
-            <div>
+            <div className="mb-4 lg:mb-0">
               {currentUser ? (
                 <div onClick={handleSignOut}>
                   <div className="text-white hover:text-tertiary transition duration-300 cursor-pointer">

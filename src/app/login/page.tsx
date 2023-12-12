@@ -11,9 +11,11 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [error, setError] = useState<string | null>(null); // Add state for error
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setState({ ...state, [e.target.name]: e.target.value });
+    setError(null);
   }
 
   // Handle login
@@ -27,12 +29,12 @@ export default function Login() {
 
       if (callback?.ok) {
         router.push("/");
+      } else {
+        setError("Invalid email or password"); // Set error message on failed login
+        setState({ ...state, password: "" }); // Clear password field
       }
-      router.refresh();
 
-      if (callback?.error) {
-        throw new Error("Invalid credentials");
-      }
+      router.refresh();
     } catch (error: any) {
       console.error("Sign-in failed:", error.message);
     }
@@ -40,6 +42,8 @@ export default function Login() {
 
   return (
     <form className="text-center max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
+      {/* Display error message */}
+      {error && <div className="text-red-500">{error}</div>}{" "}
       <div className="space-y-4">
         <FormInput
           id="email"
@@ -49,6 +53,7 @@ export default function Login() {
           onChange={handleChange}
           placeholder="Email"
           autoComplete="email"
+          required={true}
         />
         <FormInput
           id="password"
@@ -58,6 +63,7 @@ export default function Login() {
           onChange={handleChange}
           placeholder="Password"
           autoComplete="new-password"
+          required={true}
         />
       </div>
       <div className="my-4 space-y-4">

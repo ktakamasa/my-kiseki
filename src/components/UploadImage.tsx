@@ -36,14 +36,15 @@ export default function UploadImage({ onChange }: UploadImageProps) {
         name="image"
         accept="image/*"
         onChange={handleFileChange}
+        required={false}
       />
       {image && (
         <Image
           src={URL.createObjectURL(image)}
           alt="Uploaded Image"
           className="mt-2 max-w-full h-auto"
-          width={500}
-          height={500}
+          width={400}
+          height={400}
         />
       )}
     </div>

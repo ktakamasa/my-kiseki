@@ -51,9 +51,8 @@ export default function PostById({
       }
 
       router.refresh();
-      setTimeout(() => {
-        router.push("/posts");
-      }, 1500);
+
+      router.push("/posts");
     } catch (error: any) {
       console.error("Post edit failed:", error.message);
     }
@@ -120,6 +119,7 @@ export default function PostById({
               value={state.title}
               onChange={handleChange}
               placeholder="Miracle title"
+              required={true}
             />
             <FormInput
               id="description"
@@ -128,6 +128,7 @@ export default function PostById({
               value={state.description}
               onChange={handleChange}
               placeholder="Description of miracle"
+              required={true}
             />
           </div>
           <button type="submit">Submit</button>

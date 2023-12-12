@@ -12,8 +12,11 @@ export default function Registration() {
     password: "",
   });
 
+  const [error, setError] = useState<string | null>(null); // Add state for error
+
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setState({ ...state, [e.target.name]: e.target.value });
+    setError(null);
   }
 
   const handleSubmit = async (event: FormEvent) => {
@@ -29,14 +32,19 @@ export default function Registration() {
       });
 
       if (!response.ok) {
-        throw new Error(
-          `Failed to register: ${response.status} ${response.statusText}`
-        );
-      }
-      router.refresh();
-      setTimeout(() => {
+        const data = await response.json();
+        if (data.error) {
+          setError(data.error); // Set error message if provided by the API
+        } else {
+          throw new Error(
+            `Failed to register: ${response.status} ${response.statusText}`
+          );
+        }
+      } else {
+        router.refresh();
+
         router.push("/login");
-      }, 2500);
+      }
     } catch (error: any) {
       console.error("Registration failed:", error.message);
     }
@@ -44,6 +52,8 @@ export default function Registration() {
 
   return (
     <form className="text-center max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
+      {/* Display error message */}
+      {error && <div className="text-red-500">{error}</div>}{" "}
       <div className="space-y-4">
         <FormInput
           id="name"
@@ -53,6 +63,7 @@ export default function Registration() {
           onChange={handleChange}
           placeholder="Name"
           autoComplete="name"
+          required={true}
         />
         <FormInput
           id="email"
@@ -62,6 +73,7 @@ export default function Registration() {
           onChange={handleChange}
           placeholder="Email"
           autoComplete="email"
+          required={true}
         />
         <FormInput
           id="password"
@@ -71,6 +83,7 @@ export default function Registration() {
           onChange={handleChange}
           placeholder="Password"
           autoComplete="new-password"
+          required={true}
         />
         <button
           type="submit"

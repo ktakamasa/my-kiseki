@@ -14,9 +14,19 @@ export default function CreatePost() {
     imageSrc: "",
   });
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({
+    title: "",
+    description: "",
+  });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" }); // Clear error when input changes
+  };
+
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setState({ ...state, description: e.target.value });
+    setErrors({ ...errors, description: "" }); // Clear error when input changes
   };
 
   const handleFileChange = (imageSrc: string) => {
@@ -25,6 +35,17 @@ export default function CreatePost() {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
+
+    // Validate mandatory fields
+    if (!state.title.trim()) {
+      setErrors({ ...errors, title: "Title is required" });
+      return;
+    }
+
+    if (!state.description.trim()) {
+      setErrors({ ...errors, description: "Description is required" });
+      return;
+    }
 
     try {
       setLoading(true);
@@ -44,9 +65,7 @@ export default function CreatePost() {
       }
 
       router.refresh();
-      setTimeout(() => {
-        router.push("/posts");
-      }, 1500);
+      router.push("/posts");
     } catch (error: any) {
       console.error("Post upload failed:", error.message);
     } finally {
@@ -56,6 +75,10 @@ export default function CreatePost() {
 
   return (
     <form className="text-center max-w-md mx-auto mt-8" onSubmit={handleSubmit}>
+      {errors.title && <p className="text-red-500">{errors.title}</p>}
+      {errors.description && (
+        <p className="text-red-500">{errors.description}</p>
+      )}
       <div className="space-y-4">
         <FormInput
           id="title"
@@ -64,13 +87,15 @@ export default function CreatePost() {
           value={state.title}
           onChange={handleChange}
           placeholder="Miracle title"
+          required={true}
         />
-        <FormInput
+
+        <textarea
           id="description"
           name="description"
-          type="text"
           value={state.description}
-          onChange={handleChange}
+          onChange={handleDescriptionChange}
+          className="w-full h-40 p-2 border border-gray-300 rounded resize-none"
           placeholder="Description of miracle"
         />
       </div>
