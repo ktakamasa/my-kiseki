@@ -64,8 +64,9 @@ export default function CreatePost() {
         );
       }
 
-      router.refresh();
-      router.push("/posts");
+      // router.refresh();
+      // router.push("/posts");
+      router.replace("/posts");
     } catch (error: any) {
       console.error("Post upload failed:", error.message);
     } finally {

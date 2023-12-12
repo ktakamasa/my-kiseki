@@ -4,16 +4,16 @@ import { MdDelete, MdEdit } from "react-icons/md";
 import { useRouter } from "next/navigation";
 
 interface PostData {
-  id: string;
-  title: string;
-  description: string;
+  id: string | null;
+  title: string | null;
+  description: string | null;
   imageSrc: string;
   createdAt: Date;
-  userId: string;
+  userId: string | null;
 }
 
 interface User {
-  id: string;
+  id: string | null;
   name: string | null;
   email: string | null;
   hashedPassword: string | null;
@@ -29,9 +29,9 @@ interface PostProps {
 export default function SinglePost({ key, data, currentUser }: PostProps) {
   const router = useRouter();
 
-  const handleDelete = async (data: PostData) => {
+  const handleDelete = async function () {
     try {
-      console.log("Deleting post:", data.id);
+      // console.log("Deleting post:", data.id);
       const response = await fetch(`/api/posts/${data.id}`, {
         method: "DELETE",
         headers: {
@@ -44,7 +44,7 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
           `Error deleting blog. Status: ${response.status}, ${response.statusText}`
         );
       }
-      console.log("Post deleted successfully");
+      // console.log("Post deleted successfully");
       router.refresh();
     } catch (error) {
       console.error("Error deleting blog:", error);
