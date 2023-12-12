@@ -31,6 +31,7 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
 
   const handleDelete = async (data: PostData) => {
     try {
+      console.log("Deleting post:", data.id);
       const response = await fetch(`/api/posts/${data.id}`, {
         method: "DELETE",
         headers: {
@@ -43,8 +44,7 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
           `Error deleting blog. Status: ${response.status}, ${response.statusText}`
         );
       }
-
-      await response.json();
+      console.log("Post deleted successfully");
       router.refresh();
     } catch (error) {
       console.error("Error deleting blog:", error);
@@ -58,7 +58,6 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
           src={data.imageSrc}
           width={400}
           height={300}
-          objectFit="cover"
           alt="Miracle post image"
           className="rounded-md"
         />

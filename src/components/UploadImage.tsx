@@ -1,7 +1,10 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
-import Image from "next/image";
+// Import Lazy from React
+import React, { useState, ChangeEvent, lazy, Suspense } from "react";
 import FormInput from "./FormInput";
+
+// Lazy load the Image component
+const Image = lazy(() => import("next/image"));
 
 interface UploadImageProps {
   onChange: (imageSrc: string) => void;
@@ -39,14 +42,22 @@ export default function UploadImage({ onChange }: UploadImageProps) {
         required={false}
       />
       {image && (
-        <Image
-          src={URL.createObjectURL(image)}
-          alt="Uploaded Image"
-          className="mt-2 max-w-full h-auto"
-          width={500}
-          height={500}
-        />
+        // Wrap the lazy-loaded Image in a Suspense component
+        <Suspense fallback={<div>Loading...</div>}>
+          <LazyImage src={URL.createObjectURL(image)} />
+        </Suspense>
       )}
     </div>
   );
 }
+
+// Create a separate LazyImage component
+const LazyImage = ({ src }: { src: string }) => (
+  <Image
+    src={src}
+    alt="Uploaded Image"
+    className="mt-2 max-w-full h-auto"
+    width={500}
+    height={500}
+  />
+);

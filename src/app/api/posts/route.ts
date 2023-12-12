@@ -11,6 +11,10 @@ export async function POST(req: Request) {
   const body = await req.json();
   const { title, description, imageSrc } = body;
 
+  if (!title || !description) {
+    return NextResponse.error();
+  }
+
   try {
     const post = await prisma.post.create({
       data: {
@@ -23,6 +27,6 @@ export async function POST(req: Request) {
     return NextResponse.json(post);
   } catch (error) {
     console.error("Error creating post:", error);
-    return;
+    return NextResponse.error();
   }
 }

@@ -15,7 +15,7 @@ export default function Home() {
       </p>
       <Link
         href="/posts"
-        className="bg-tertiary text-black font-bold px-4 py-3 rounded hover:bg-accent transition duration-300"
+        className="bg-tertiary text-black font-semibold px-4 py-3 rounded hover:bg-accent transition duration-300"
       >
         Share a Miracle
       </Link>

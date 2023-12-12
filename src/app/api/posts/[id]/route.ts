@@ -7,6 +7,8 @@ export async function DELETE(
   req: Request,
   { params }: { params: { postId: string } }
 ) {
+  console.log("DELETE request received for post ID:", params.postId);
+
   const currentUser = await getCurrentUser();
 
   if (!currentUser) {
@@ -29,6 +31,7 @@ export async function DELETE(
     });
 
     if (!post) {
+      console.log("Post not found for deletion");
       return NextResponse.error();
     }
 
@@ -37,7 +40,7 @@ export async function DELETE(
         id: postId,
       },
     });
-
+    console.log("Post deleted successfully");
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting post:", error);
