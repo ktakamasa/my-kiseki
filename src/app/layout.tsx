@@ -26,11 +26,11 @@ export default async function RootLayout({
   const currentUser = await getCurrentUser();
   return (
     <html lang="en">
-      <body className={roboto.className}>
+      <body className={`${roboto.className} flex flex-col min-h-screen`}>
         <Header currentUser={currentUser} />
         {/* <SessionProvider session={session}> */}
         {/* creates session before login - so don't use */}
-        <main>{children}</main>
+        <main className="flex-grow">{children}</main>
         {/* </SessionProvider> */}
         <footer>
           <Footer />

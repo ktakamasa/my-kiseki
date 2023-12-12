@@ -2,7 +2,7 @@
 import FormInput from "@/components/FormInput";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useState, ChangeEvent } from "react";
 import { signIn } from "next-auth/react";
 
 export default function Login() {
@@ -12,7 +12,7 @@ export default function Login() {
     password: "",
   });
 
-  function handleChange(e: any) {
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setState({ ...state, [e.target.name]: e.target.value });
   }
 
