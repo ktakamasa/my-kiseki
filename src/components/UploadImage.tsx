@@ -60,5 +60,6 @@ const LazyImage = ({ src }: { src: string }) => (
     className="mt-2 max-w-full h-auto"
     width={500}
     height={500}
+    loading="lazy"
   />
 );

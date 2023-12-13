@@ -54,9 +54,10 @@ export default function PostById({
         );
       }
 
-      // router.refresh();
-      // router.push("/posts");
-      router.replace("/posts");
+      router.refresh();
+      setTimeout(() => {
+        router.push("/posts");
+      }, 1500);
     } catch (error: any) {
       console.error("Post edit failed:", error.message);
     }
@@ -83,7 +84,9 @@ export default function PostById({
     } catch (error) {
       console.error("Error deleting blog:", error);
     } finally {
-      router.push("/posts");
+      setTimeout(() => {
+        router.push("/posts");
+      }, 1500);
     }
   };
 

@@ -42,7 +42,9 @@ export default function Registration() {
         }
       } else {
         router.refresh();
-        router.push("/login");
+        setTimeout(() => {
+          router.push("/login");
+        }, 1500);
       }
     } catch (error: any) {
       console.error("Registration failed:", error.message);
