@@ -158,7 +158,7 @@ export default function PostById({
 
           <div className="mt-4">
             <UploadImage
-              value={state.imageSrc}
+              value={state.imageSrc || initialImageSrc}
               onChange={(value) => setCustomValue("imageSrc", value)}
             />
           </div>

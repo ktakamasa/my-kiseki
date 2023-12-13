@@ -11,14 +11,20 @@ interface UploadImageProps {
 }
 
 export default function UploadImage({ value, onChange }: UploadImageProps) {
+  console.log("UploadImage value:", value);
+
   const [image, setImage] = useState<File | null>(null);
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const dataUrl = await readFileAsDataURL(file);
-      setImage(file);
-      onChange && onChange(dataUrl);
+      try {
+        const dataUrl = await readFileAsDataURL(file);
+        setImage(file);
+        onChange && onChange(dataUrl);
+      } catch (error: any) {
+        console.error("Error reading file as data URL:", error.message);
+      }
     }
   };
 
@@ -41,7 +47,7 @@ export default function UploadImage({ value, onChange }: UploadImageProps) {
         onChange={handleFileChange}
         required={false}
       />
-      {image && (
+      {value && image && (
         // Wrap the lazy-loaded Image in a Suspense component
         <Suspense fallback={<div>Loading...</div>}>
           <LazyImage src={URL.createObjectURL(image)} />
