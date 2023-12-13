@@ -26,14 +26,14 @@ export default function Header({ currentUser }: HeaderProps) {
     <header>
       <nav className="bg-primary p-4">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center text-center">
-          <div className="flex space-x-4">
+          <div className="m-0 flex flex-col lg:flex-row space-x-4 items-center justify-center">
             <Link href="/">
               <h1 className="text-white text-xl font-semibold cursor-pointer mb-4 lg:mb-0">
                 ✨キセキ✨
               </h1>
             </Link>
             {currentUser ? (
-              <div className="text-white font-semibold mb-4 lg:mb-0">
+              <div className="text-white font-semibold mb-4 lg:mb-0 text-center">
                 Hi {currentUser.name ?? "User"}!
               </div>
             ) : (
