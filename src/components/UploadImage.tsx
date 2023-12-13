@@ -1,5 +1,4 @@
 "use client";
-// Import Lazy from React
 import React, { useState, ChangeEvent, lazy, Suspense } from "react";
 import FormInput from "./FormInput";
 
