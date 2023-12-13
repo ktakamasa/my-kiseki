@@ -91,3 +91,55 @@ export async function PUT(
     return NextResponse.error();
   }
 }
+
+// For handling likes
+export async function PUT_Like(
+  req: Request,
+  { params }: { params: { postId: string } }
+) {
+  const currentUser = await getCurrentUser();
+  const { postId } = params;
+
+  if (!currentUser || !postId || typeof postId !== "string") {
+    console.error("Invalid request parameters");
+    return NextResponse.error();
+  }
+
+  try {
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    if (!post) {
+      console.error("Post not found");
+      return NextResponse.error();
+    }
+
+    // Check if the current user has already liked the post
+    const isLiked = post.likedIds.includes(currentUser.id);
+
+    // Toggle liked status based on the current state
+    const updatedLikedIds = isLiked
+      ? post.likedIds.filter((id) => id !== currentUser.id)
+      : [...post.likedIds, currentUser.id];
+
+    // Update likedIds field only
+    const updatedPost = await prisma.post.update({
+      where: {
+        id: postId,
+      },
+      data: {
+        likedIds: updatedLikedIds,
+      },
+    });
+
+    console.log("LikedIds updated successfully:", updatedPost.likedIds);
+
+    return NextResponse.json(updatedPost);
+  } catch (error) {
+    console.error("Error updating likes:", error);
+    return NextResponse.error();
+  }
+}
