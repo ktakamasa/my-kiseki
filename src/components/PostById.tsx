@@ -13,17 +13,17 @@ interface PostProps {
 }
 
 export default function PostById({
-  title,
-  description,
-  imageSrc,
+  title: initialTitle,
+  description: initialDescription,
+  imageSrc: initialImageSrc,
   postId,
 }: PostProps) {
   const router = useRouter();
 
   const [state, setState] = useState({
-    title: "",
-    description: "",
-    imageSrc: "",
+    title: initialTitle || "",
+    description: initialDescription || "",
+    imageSrc: initialImageSrc || "",
   });
   const [isActive, setIsActive] = useState(false);
 
@@ -40,7 +40,6 @@ export default function PostById({
 
     try {
       const response = await fetch(`/api/posts/${postId}`, {
-        // Use template literals here
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -101,16 +100,21 @@ export default function PostById({
     <div className="max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-md">
       <div className="mb-4">
         <h2 className="text-xl font-bold">Title:</h2>
-        <p>{title}</p>
+        <p>{initialTitle}</p>
       </div>
 
       <div className="mb-4">
         <h2 className="text-xl font-bold">Description:</h2>
-        <p>{description}</p>
+        <p>{initialDescription}</p>
       </div>
 
       <div className="flex justify-center mb-4 ">
-        <Image src={imageSrc} width={400} height={300} alt="Uploaded Image" />
+        <Image
+          src={initialImageSrc}
+          width={400}
+          height={300}
+          alt="Uploaded Image"
+        />
       </div>
 
       <div className="flex justify-center space-x-4">
