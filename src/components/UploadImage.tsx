@@ -7,10 +7,11 @@ import FormInput from "./FormInput";
 const Image = lazy(() => import("next/image"));
 
 interface UploadImageProps {
+  value?: any;
   onChange: (imageSrc: string) => void;
 }
 
-export default function UploadImage({ onChange }: UploadImageProps) {
+export default function UploadImage({ value, onChange }: UploadImageProps) {
   const [image, setImage] = useState<File | null>(null);
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -32,7 +33,7 @@ export default function UploadImage({ onChange }: UploadImageProps) {
   };
 
   return (
-    <div className="mt-4">
+    <div>
       <FormInput
         type="file"
         id="image"

@@ -1,7 +1,6 @@
 "use client";
-
 import { useRouter } from "next/navigation";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import UploadImage from "./UploadImage";
 import FormInput from "./FormInput";
@@ -32,11 +31,16 @@ export default function PostById({
     setState({ ...state, [event.target.name]: event.target.value });
   }
 
-  const handleSubmit = async (event: FormEvent) => {
+  const handleDescriptionChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setState({ ...state, description: e.target.value });
+  };
+
+  const handleSubmit = async function (event: FormEvent) {
     event.preventDefault();
 
     try {
-      const response = await fetch(`/api/posts${postId}, state`, {
+      const response = await fetch(`/api/posts/${postId}`, {
+        // Use template literals here
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -50,15 +54,16 @@ export default function PostById({
         );
       }
 
-      router.refresh();
-
-      router.push("/posts");
+      // router.refresh();
+      // router.push("/posts");
+      router.replace("/posts");
     } catch (error: any) {
       console.error("Post edit failed:", error.message);
     }
   };
 
   const handleDelete = async (event: FormEvent) => {
+    event.preventDefault();
     try {
       const response = await fetch(`/api/posts/${postId}`, {
         method: "DELETE",
@@ -90,27 +95,39 @@ export default function PostById({
   };
 
   return (
-    <div>
-      <div>
-        <span>{title}</span>
+    <div className="max-w-3xl mx-auto my-8 p-6 bg-white shadow-lg rounded-md">
+      <div className="mb-4">
+        <h2 className="text-xl font-bold">Title:</h2>
+        <p>{title}</p>
       </div>
-      <div>
+
+      <div className="mb-4">
+        <h2 className="text-xl font-bold">Description:</h2>
+        <p>{description}</p>
+      </div>
+
+      <div className="flex justify-center mb-4 ">
         <Image src={imageSrc} width={400} height={300} alt="Uploaded Image" />
       </div>
-      <div>
-        <button onClick={() => setIsActive(!isActive)}>Edit</button>
-        <button onClick={handleDelete}>Delete</button>
+
+      <div className="flex justify-center space-x-4">
+        <button
+          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
+          onClick={() => setIsActive(!isActive)}
+        >
+          Edit
+        </button>
+
+        <button
+          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+          onClick={handleDelete}
+        >
+          Delete
+        </button>
       </div>
 
       {isActive && (
-        <form onSubmit={handleSubmit}>
-          <div>
-            <UploadImage
-              value={state.imageSrc}
-              onChange={(value) => setCustomValue("imageSrc", value)}
-            />
-          </div>
-
+        <form className="mt-4" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <FormInput
               id="title"
@@ -121,17 +138,30 @@ export default function PostById({
               placeholder="Miracle title"
               required={true}
             />
-            <FormInput
+
+            <textarea
               id="description"
               name="description"
-              type="text"
               value={state.description}
-              onChange={handleChange}
+              onChange={handleDescriptionChange}
+              className="w-full h-40 p-2 border border-gray-300 rounded resize-none"
               placeholder="Description of miracle"
-              required={true}
             />
           </div>
-          <button type="submit">Submit</button>
+
+          <div className="mt-4">
+            <UploadImage
+              value={state.imageSrc}
+              onChange={(value) => setCustomValue("imageSrc", value)}
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="mt-4 bg-tertiary text-black px-4 py-2 rounded hover:bg-accent transition duration-200"
+          >
+            Submit
+          </button>
         </form>
       )}
     </div>
