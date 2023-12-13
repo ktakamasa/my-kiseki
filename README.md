@@ -11,6 +11,7 @@ My-Kiseki is a joyful and positive blogging platform where users can share mirac
 - **Post Creation:** Authenticated users can create posts to share their miracles or special experiences.
 - **Post Management:** Users have the ability to edit or delete the posts they have created.
 - **Public Access:** Anyone can view the posts without needing to log in.
+- **Like Post** Users have the ability to like created posts
 
 ## Technologies Used
 
