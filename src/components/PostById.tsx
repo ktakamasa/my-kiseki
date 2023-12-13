@@ -79,12 +79,13 @@ export default function PostById({
           `Error deleting blog. Status: ${response.status}, ${response.statusText}`
         );
       }
+
       router.refresh();
       setTimeout(() => {
         router.push("/posts");
       }, 1500);
-    } catch (error) {
-      console.error("Error deleting blog");
+    } catch (error: any) {
+      console.error("Error deleting blog:", error.message);
     } finally {
       setDeleting(false);
     }

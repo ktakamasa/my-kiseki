@@ -24,6 +24,6 @@ export default async function page({ params }: { params: { postId: string } }) {
       </div>
     );
   } catch (error: any) {
-    return <div>Error: {error.message}</div>;
+    return;
   }
 }
