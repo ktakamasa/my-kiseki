@@ -22,7 +22,7 @@ export default async function getPostById({
     });
 
     if (!post) {
-      throw new Error(`No post found with postId: ${postId}`);
+      throw new Error();
     }
 
     return {
