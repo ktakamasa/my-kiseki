@@ -52,8 +52,8 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
   };
 
   return (
-    <div className="border border-gray-300 p-4 mb-4 rounded-md max-w-[900px] mx-auto flex">
-      <div className="w-1/3 mr-4">
+    <div className="border border-gray-300 p-4 mb-4 rounded-md mx-auto flex flex-col md:flex-row">
+      <div className="md:w-1/3 md:mr-4 mb-4 md:mb-0 flex items-center justify-center">
         <Image
           src={data.imageSrc}
           width={400}
@@ -62,16 +62,16 @@ export default function SinglePost({ key, data, currentUser }: PostProps) {
           className="rounded-md"
         />
       </div>
-      <div className="w-2/3">
+      <div className="md:w-2/3">
         <h1 className="text-xl font-bold mb-2">{data.title}</h1>
         <p>{data.description}</p>
       </div>
 
       {data.userId === currentUser?.id && (
-        <div>
+        <div className="flex justify-end mt-2 md:mt-0">
           <MdEdit
             onClick={() => router.push(`/posts/${data.id}`)}
-            className="cursor-pointer text-[1.5rem]"
+            className="cursor-pointer text-[1.5rem] mr-2"
           />
           <MdDelete
             onClick={handleDelete}
