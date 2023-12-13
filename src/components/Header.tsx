@@ -26,7 +26,7 @@ export default function Header({ currentUser }: HeaderProps) {
     <header>
       <nav className="bg-primary p-4">
         <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between items-center text-center">
-          <div className="m-0 flex flex-col lg:flex-row space-x-4 items-center justify-center">
+          <div className="flex flex-col lg:flex-row items-center justify-center lg:space-x-4">
             <Link href="/">
               <h1 className="text-white text-xl font-semibold cursor-pointer mb-4 lg:mb-0">
                 ✨キセキ✨
