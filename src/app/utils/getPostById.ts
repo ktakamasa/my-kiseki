@@ -32,8 +32,6 @@ export default async function getPostById({
       },
     };
   } catch (error: any) {
-    throw new Error(
-      error.message || "An error occurred while fetching the post"
-    );
+    throw new Error();
   }
 }
