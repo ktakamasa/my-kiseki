@@ -110,7 +110,7 @@ export default function SinglePost({ data, currentUser }: PostProps) {
       <div className="md:w-1/2 flex flex-col justify-between">
         <div>
           <h1 className="text-xl font-bold mb-2">{data.title}</h1>
-          <p>{data.description}</p>
+          <p className="text-left">{data.description}</p>
         </div>
 
         <div className="flex justify-between flex-row mt-2">

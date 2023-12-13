@@ -11,8 +11,6 @@ interface UploadImageProps {
 }
 
 export default function UploadImage({ value, onChange }: UploadImageProps) {
-  console.log("UploadImage value:", value);
-
   const [image, setImage] = useState<File | null>(null);
 
   const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {

@@ -26,6 +26,7 @@ export default function PostById({
     imageSrc: initialImageSrc || "",
   });
   const [isActive, setIsActive] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   function handleChange(event: ChangeEvent<HTMLInputElement>) {
     setState({ ...state, [event.target.name]: event.target.value });
@@ -65,6 +66,7 @@ export default function PostById({
   const handleDelete = async (event: FormEvent) => {
     event.preventDefault();
     try {
+      setDeleting(true);
       const response = await fetch(`/api/posts/${postId}`, {
         method: "DELETE",
         headers: {
@@ -77,15 +79,14 @@ export default function PostById({
           `Error deleting blog. Status: ${response.status}, ${response.statusText}`
         );
       }
-
-      await response.json();
       router.refresh();
-    } catch (error) {
-      console.error("Error deleting blog:", error);
-    } finally {
       setTimeout(() => {
         router.push("/posts");
       }, 1500);
+    } catch (error) {
+      console.error("Error deleting blog");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -126,14 +127,17 @@ export default function PostById({
         </button>
 
         <button
-          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
+          className={`bg-red-500 text-white px-4 py-2 rounded-md ${
+            deleting ? "cursor-not-allowed opacity-50" : "hover:bg-red-600"
+          }`}
           onClick={handleDelete}
+          disabled={deleting}
         >
-          Delete
+          {deleting ? "Deleting..." : "Delete"}
         </button>
       </div>
 
-      {isActive && (
+      {isActive && !deleting && (
         <form className="mt-4" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <FormInput
