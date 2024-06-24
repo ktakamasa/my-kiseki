@@ -51,3 +51,10 @@ My-Kiseki is a joyful and positive blogging platform where users can share mirac
    ```bash
    npm run dev
    ```
+
+
+
+### Example Images
+Example images used were sourced from Unsplash and iStock.
+
+
